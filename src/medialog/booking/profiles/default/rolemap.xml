@@ -11,8 +11,7 @@
     </permission>
 
     <?xml version="1.0"?>
-<rolemap>
- <permissions>
+ 
    <permission
         acquire="False"
         name="Show Toolbar">
