@@ -8,7 +8,7 @@
 
   <browser:page
     name="vakt-view"
-    for="medialog.booking.content.vakt.Vakt"
+    for="*"
     class=".vakt_view.VaktView"
     template="vakt_view.pt"
     permission="zope2.View"
