@@ -10,7 +10,7 @@
       <role name="Contributor"/>
     </permission>
 
-    <?xml version="1.0"?>
+ 
  
    <permission
         acquire="False"
