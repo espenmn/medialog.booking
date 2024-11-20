@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n" i18n:domain="medialog.booking" metal:use-macro="context/main_template/macros/master">
+  <body>
+    <metal:content-core fill-slot="content">
+      <metal:block define-macro="content-core">
+      <tal:define tal:define="startd context/start_date|None">
+        <h1>Tilgjengelig vakt</h1>
+
+        <div class="card">
+          <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+          <div class="card-body silv">
+            <h5 class="card-title">${view/get_user}</h5>
+            <p class="card-text">
+        
+            <table class="listing">
+            <tr><th colspan="2">${view/get_user}</th></tr>
+              <tr>
+                <td> <b>Dato</b>:</td> 
+                <td><input class="p2" type="date" id="start" value="${startd}" min="${startd}" max="${startd}" /></td>
+              </tr>
+              <tr>  
+                <td><b>skift</b>:</td>  
+                <td>${context/skift|None}</td>
+              </tr>
+            </table>
+          </p>
+          <a href="#" class="btn btn-primary">Do something (kontakte / sende epost / el? )</a>
+        </div>
+
+      </div>
+      <p> </p>
+      
+      <!-- <input type="date" id="start" value="${startd}" min="${startd}" max="${startd}" /> -->
+      <p><b>Tidspunkt</b>: ${context/start} – ${context/end}</p>
+      <style>.p2 {padding: 1px 0.5em} 
+        .silv {background-color: #FAFAFA}
+        .listing {border: 2px dotted #123456; }</style>
+      </tal:define>
+
+    </metal:block>
+  </metal:content-core>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="medialog.booking">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+  <browser:page
+    name="vakt-view"
+    for="medialog.booking.content.vakt.Vakt"
+    class=".vakt_view.VaktView"
+    template="vakt_view.pt"
+    permission="zope2.View"
+    layer="medialog.booking.interfaces.IMedialogBookingLayer"
+    />
+
+</configure>

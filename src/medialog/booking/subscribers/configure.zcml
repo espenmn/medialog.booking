@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="medialog.booking">
+
+ <!-- -*- extra stuff goes here -*- -->
+
+ <!-- Change to vakt -->
+
+    <subscriber for="medialog.booking.content.vakt.IVakt
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".set_vakt_date.handler"
+              />
+
+    <subscriber for="medialog.booking.content.vakt.IVakt
+                   zope.lifecycleevent.interfaces.IObjectAddedEvent"
+              handler=".set_vakt_date.handler"
+              />
+
+    <!-- <subscriber for="plone.dexterity.interfaces.IDexterityContent> -->
+</configure>
