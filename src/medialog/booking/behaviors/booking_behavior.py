@@ -83,12 +83,12 @@ class IBookingBehavior( IEventBasic):
     
     @invariant
     def validate_start_end(data):
-        import pdb; pdb.set_trace()
-        if data.start_date < localized_now().date() :
-            raise StartBeforeNow(
-                _("error_end_must_be_after_start_date",
-                  default=u"Datoen må være etter i dag.")
-            )
+        pass
+        # if data.start_date < localized_now().date() :
+        #     raise StartBeforeNow(
+        #         _("error_end_must_be_after_start_date",
+        #           default=u"Datoen må være etter i dag.")
+        #     )
         
         
 @adapter(IBookingBehaviorMarker)

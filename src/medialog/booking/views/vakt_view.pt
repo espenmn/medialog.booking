@@ -5,28 +5,37 @@
   <body>
     <metal:content-core fill-slot="content-core">
       <metal:block define-macro="content-core">
-      <tal:define tal:define="startd context/start_date|None">
-        <h1>Tilgjengelig vakt</h1>
-
+      <tal:define tal:define="startd context/start_date|None; user_prefs view/get_user_prefs" >
+        <h1>Tilgjengelig vakt: ${user_prefs/fullname|None}</h1>
+ 
         <div class="card">
           <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
           <div class="card-body silv">
-            <h5 class="card-title">${view/get_user}</h5>
+            <!-- <h5 class="card-title">${user_prefs/fullname}</h5> -->
             <p class="card-text">
         
             <table class="listing">
-            <tr><th colspan="2">${view/get_user}</th></tr>
+            <tr><th colspan="2">${user_prefs/fullname|None}</th></tr>
               <tr>
-                <td> <b>Dato</b>:</td> 
+                <td> <b>Dato</b></td> 
                 <td><input class="p2" type="date" id="start" value="${startd}" min="${startd}" max="${startd}" /></td>
               </tr>
               <tr>  
-                <td><b>skift</b>:</td>  
+                <td><b>Skift</b></td>  
                 <td>${context/skift|None}</td>
+              </tr>
+              <tr>  
+                <td><b>Epost</b> <br/>(kun for admin/ingen):</td>  
+                <td><a href="mailto:${user_prefs/email|None}">${user_prefs/email|None}</a></td>
+              </tr>
+              <tr>  
+                <td><b>Mobil</b>:</td>  
+                <td>${user_prefs/mobil|None}</td>
               </tr>
             </table>
           </p>
-          <a href="#" class="btn btn-primary">Do something (kontakte / sende epost / el? )</a>
+          <a href="mailto:${user_prefs/email|None}" class="btn btn-primary">Epost </a>
+          <a href="${context/portal_url}/notifications/++add++Notification?message_to=${user_prefs/id|None}" class="btn btn-primary">Melding </a>
         </div>
 
       </div>

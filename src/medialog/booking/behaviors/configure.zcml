@@ -15,9 +15,17 @@
         description="Dates etc for time booking"
         provides=".booking_behavior.IBookingBehavior"
         for="medialog.booking.interfaces.IMedialogBookingLayer"
+        />
+
+            <!-- <plone:behavior
+        name="medialog.booking.booking_behavior"
+        title="BookingBehavior"
+        description="Dates etc for time booking"
+        provides=".booking_behavior.IBookingBehavior"
+        for="medialog.booking.interfaces.IMedialogBookingLayer"
         factory=".booking_behavior.BookingBehavior"
         marker=".booking_behavior.IBookingBehaviorMarker"
-        />
+        /> -->
 
 
 

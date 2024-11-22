@@ -21,10 +21,18 @@ class VaktView(BrowserView):
         # Implement your own actions:
         return self.index()
     
-    def get_user(self):
-        return self.context.Creator()
-        # current_user = api.user.get_current()
-        # return current_user.getProperty('fullname')
+    # def get_user(self):
+    #     return self.context.Creator()
         
-        #return None
+        
+    def get_user_prefs(self):
+        username =  self.context.Creator()
+        user = api.user.get(username=username)
+        fullname = user.getProperty('fullname')
+        email = user.getProperty('email')
+        mobil = user.getProperty('mobil', None)
+        id = user.getProperty('id')
+        
+        return {'email': email, 'id': id, 'mobil': mobil, 'fullname': fullname}
+        
         
