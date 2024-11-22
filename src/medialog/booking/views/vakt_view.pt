@@ -5,7 +5,7 @@
   <body>
     <metal:content-core fill-slot="content-core">
       <metal:block define-macro="content-core">
-      <tal:define tal:define="startd context/start_date|None; user_prefs view/get_user_prefs" >
+      <tal:define tal:define="startd context/start_date|None; user_prefs view/get_user_prefs; editor user_prefs/editor|None" >
         <h1>Tilgjengelig vakt: ${user_prefs/fullname|None}</h1>
  
         <div class="card">
@@ -24,18 +24,18 @@
                 <td><b>Skift</b></td>  
                 <td>${context/skift|None}</td>
               </tr>
-              <tr tal:condition="python: user.get('role') == 'Editor'">
+              <tr tal:condition="editor">
                 <td><b>Epost</b> <br/>(kun for admin/ingen):</td>  
                 <td><a href="mailto:${user_prefs/email|None}">${user_prefs/email|None}</a></td>
               </tr>
-              <tr tal:condition="python: user.get('role') == 'Editor'"> 
+              <tr tal:condition="editor"> 
                 <td><b>Mobil</b>:</td>  
                 <td>${user_prefs/mobil|None}</td>
               </tr>
             </table>
-          </p>
-          <a tal:condition="python: user.get('role') == 'Editor'" href="mailto:${user_prefs/email|None}" class="btn btn-primary">Epost </a>
-          <a tal:condition="python: user.get('role') == 'Editor'" href="${context/portal_url}/notifications/++add++Notification?message_to=${user_prefs/id|None}" class="btn btn-primary">Melding </a>
+          </p> 
+          <a tal:condition="editor" href="mailto:${user_prefs/email|None}" class="btn btn-primary">Epost </a>
+          <a tal:condition="editor" href="${context/portal_url}/notifications/++add++Notification?message_to=${user_prefs/id|None}" class="btn btn-primary">Melding </a>
         </div>
 
       </div>

@@ -32,7 +32,9 @@ class VaktView(BrowserView):
         email = user.getProperty('email')
         mobil = user.getProperty('mobil', None)
         id = user.getProperty('id')
+        current =api.user.get_current()
+        editor  = 'Editor' in current.getRoles()
         
-        return {'email': email, 'id': id, 'mobil': mobil, 'fullname': fullname}
+        return {'email': email, 'id': id, 'mobil': mobil, 'fullname': fullname, 'editor': editor}
         
         
