@@ -54,7 +54,7 @@
      for="plone.base.interfaces.IPloneSiteRoot"
      manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
      layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
-     class="medialog.notificationsviewlets.notification_viewlet.NotificationViewlet"
+     class="medialog.notifications.viewlets.notification_viewlet.NotificationViewlet"
      permission="zope2.View"
      />
 
