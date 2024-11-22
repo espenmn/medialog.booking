@@ -50,8 +50,8 @@
   <include package=".behaviors" />
 
   <browser:viewlet
-     name="notification-viewlet"
-     for="plone.base.interfaces.IPloneSiteRoot"
+     name="collection-notification-viewlet"
+     for="plone.app.contenttypes.interfaces.ICollection"
      manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
      layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
      class="medialog.notifications.viewlets.notification_viewlet.NotificationViewlet"
