@@ -1,64 +1,61 @@
 # -*- coding: utf-8 -*-
 
+from plone.api.portal import getRequest
 from medialog.booking import _
 from plone import schema
 from plone.autoform.interfaces import IFormFieldProvider
-# from plone.supermodel import model
-# from Products.CMFPlone.utils import safe_hasattr
-# from zope.component import adapter
 from zope.interface import Interface
-# from zope.interface import implementer
-# from zope.interface import provider
-
-# from plone.app.event.dx.behaviors import IEventLocation
 from plone.autoform import directives
-from datetime import timedelta
-
-# from plone.app.event.dx.behaviors import IEventLocation, IEventAttendees, IEventContact
+from datetime import datetime, timedelta
 from plone.app.event.dx.behaviors import IEventBasic
-# from plone.app.z3cform.widget import AjaxSelectFieldWidget
-# from plone.app.z3cform.widget import AjaxSelectWidget
-# from zope import schema
 from zope.interface import provider
 from zope.interface import invariant
 from zope.interface import Invalid
-from plone.app.event.base import localized_now
-# from Products.CMFPlone.utils import safe_hasattr
-# from zope.component import adapter
-# from zope.interface import Interface
-# from zope.interface import implementer
+from plone.app.event.base import localized_now 
+from zope.component import adapter
+from zope.interface import Interface 
+from zope.schema.interfaces import IContextAwareDefaultFactory
+
+
+#
+# Note: Somewhere from Plone 5 to 6 the date passed from fullcalender 'disappared'
+# So 'Event' does not work, this is a 'hack around it'
+# Maybe it should be fixed in patternslib or similar ??
+
+@provider(IContextAwareDefaultFactory)
+def day_clicked(context=None):
+    """Default factory for the start_date field."""
+    request = getRequest()
+    date_str = request.get('date', None)  # Get 'date' parameter from request
+    if date_str:
+        try:
+            # Convert the date string to a datetime object
+            parsed_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+            return parsed_date
+        except ValueError:
+            # Handle invalid date format
+            pass
+    return None  # Fallback if 'date' is not in the request or invalid
+
 
 class StartBeforeNow(Invalid):
     __doc__ = _("error_invalid_date",
                 default=u"Invalid dato")
 
-
 class IBookingBehaviorMarker(Interface):
     pass
-
-
-# @provider(IFormFieldProvider)
-# class IBookingBehavior(model.Schema):
-#     """
-#     """
-
-#     # location = schema.Choice(
-#     #     title="Meeting Location",
-#     #     description="Location of the meeting",
-#     #     required=True,
-#     #     vocabulary= 'XXXX'
-#     # )
-#     # directives.widget("location", AjaxSelectFieldWidget, klass="event_location")
 
 
 @provider(IFormFieldProvider)
 class IBookingBehavior( IEventBasic):
     """Event Contact Schema."""
     
-    # directives.omitted('contact_email')
-    # directives.omitted('contact_phone') 
-    # directives.omitted('contact_name') 
+    # icalendar event uid
+    sync_uid = schema.TextLine(required=False)
+    directives.mode(sync_uid='hidden')
+    
     directives.omitted('start','end','whole_day', 'open_end')
+    
     
     start_date = schema.Date(
         title=_(
@@ -70,7 +67,7 @@ class IBookingBehavior( IEventBasic):
             default=u'Date ledig for skift.'
         ),
         required=True,
-        # defaultFactory=default_start
+        defaultFactory= day_clicked
     )
     
     skift = schema.Choice(
@@ -81,13 +78,12 @@ class IBookingBehavior( IEventBasic):
         default="dag",
     )
     
-    # icalendar event uid
-    sync_uid = schema.TextLine(required=False)
-    directives.mode(sync_uid='hidden')
+
     
     
     @invariant
     def validate_start_end(data):
+        import pdb; pdb.set_trace()
         if data.start_date < localized_now().date() :
             raise StartBeforeNow(
                 _("error_end_must_be_after_start_date",
@@ -95,4 +91,11 @@ class IBookingBehavior( IEventBasic):
             )
         
         
+@adapter(IBookingBehaviorMarker)
+class BookingBehavior(object):
+    def __init__(self, context):
+        self.context = context
         
+ 
+
+  
