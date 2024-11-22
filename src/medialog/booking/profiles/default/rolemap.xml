@@ -15,7 +15,7 @@
    <permission
         acquire="False"
         name="Show Toolbar">
-      <role name="Reviewer" />
+      <role name="Editor" />
       <role name="Site Administrator" />
       <role name="Manager" />
     </permission>
