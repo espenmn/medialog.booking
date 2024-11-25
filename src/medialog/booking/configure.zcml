@@ -53,7 +53,7 @@
      name="collection-notification-viewlet"
      for="plone.app.contenttypes.interfaces.ICollection"
      manager="plone.app.layout.viewlets.interfaces.IGlobalStatusMessage"
-     layer="medialog.notifications.interfaces.IMedialogNotificationsLayer"
+     layer="medialog.notifications.interfaces.IMedialogBookingLayer"
      class="medialog.notifications.viewlets.notification_viewlet.NotificationViewlet"
      template="notification-viewlet.pt"
      permission="zope2.View"
