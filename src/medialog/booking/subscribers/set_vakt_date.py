@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 import transaction
 from datetime import datetime, timedelta, time, date
+from plone import api
 
 def handler(obj, event):
     """ Event handler
     """
     # if object.portal_type in  ['Vakt' ]:
+    username =  obj.Creator()
+    user = api.user.get(username=username)
+    fullname = user.getProperty('fullname')
     if hasattr(obj, 'start_date'):
         if obj.start_date is not None:
             startdate= obj.start_date
@@ -30,5 +34,6 @@ def handler(obj, event):
             setattr(obj, 'start', s_date) 
             setattr(obj, 'end', e_date) 
             setattr(obj, 'location', '') 
+            setattr(obj, 'title', fullname) 
             
             transaction.commit()
